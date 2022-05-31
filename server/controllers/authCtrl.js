@@ -52,6 +52,24 @@ const authCtrl = {
             return res.status(500).json({ msg: err.message })
         }
     },
+    validToken: async (req, res) => {
+        try {
+            const token = req.header("x-auth-token");
+            if (!token) return res.json(false);
+            const verified = jwt.verify(token, "passwordKey");
+            if (!verified) return res.json(false);
+
+            const user = await User.findById(verified.id);
+            if (!user) return res.json(false);
+            res.json(true);
+        } catch (e) {
+            return res.status(500).json({ msg: err.message })
+        }
+    },
+    getUser: async (req, res) => {
+        const user = await User.findById(req.user);
+        res.json({ ...user._doc, token: req.token });
+    }
 }
 
 module.exports = authCtrl
