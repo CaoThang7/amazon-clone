@@ -146,7 +146,7 @@ class _AuthScreenState extends State<AuthScreen> {
                   },
                 ),
               ),
-              //*  check variable enum == value: Auth.signup (if true show container signin) *//
+              //*  check variable enum == value: Auth.signin (if true show container signin) *//
               if (_auth == Auth.signin)
                 Container(
                   padding: const EdgeInsets.all(8),
