@@ -1,6 +1,7 @@
 import 'package:amazon_clone/constants/global_variables.dart';
 import 'package:amazon_clone/providers/user_provider.dart';
 import 'package:amazon_clone/router/router.dart';
+import 'package:amazon_clone/screens/admin/screen/admin_screen.dart';
 import 'package:amazon_clone/screens/auth/auth_screen.dart';
 import 'package:amazon_clone/screens/auth/auth_service.dart';
 import 'package:amazon_clone/widgets/bottom_bar.dart';
@@ -53,8 +54,10 @@ class _MyAppState extends State<MyApp> {
               .user
               .token
               .isNotEmpty //check token != null
-          ? const BottomBar() // token is valid navigator BottomBar
-          : const AuthScreen(), // else navigator AuthenScreen
+          ? Provider.of<UserProvider>(context).user.type == 'user'
+              ? const BottomBar() 
+              : const AdminScreen()
+          : const AuthScreen(),
     );
   }
 }
