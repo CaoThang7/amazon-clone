@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 require('dotenv').config()
 // IMPORTS FROM OTHER FILES
 const authRouter = require("./routes/authRouter");
-
+const adminRouter = require("./routes/adminRouter");
 // INIT
 const PORT = process.env.PORT || 3000;
 const app = express();
@@ -13,6 +13,7 @@ const DB = process.env.MONGODB_URL;
 // middleware
 app.use(express.json())
 app.use('/api', authRouter)
+app.use('/api', adminRouter)
 
 // Connections
 mongoose
