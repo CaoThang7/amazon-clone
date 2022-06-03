@@ -18,6 +18,23 @@ const adminCtrl = {
             res.status(500).json({ error: e.message });
         }
     },
+    getProduct: async (req, res) => {
+        try {
+            const products = await Product.find({});
+            res.json(products);
+        } catch (e) {
+            res.status(500).json({ error: e.message });
+        }
+    },
+    deleteProduct: async (req, res) => {
+        try {
+            const { id } = req.body;
+            let product = await Product.findByIdAndDelete(id);
+            res.json(product);
+        } catch (e) {
+            res.status(500).json({ error: e.message });
+        }
+    },
 }
 
 module.exports = adminCtrl
