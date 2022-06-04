@@ -28,7 +28,7 @@ class _DealOfDayState extends State<DealOfDay> {
         ),
         const SizedBox(height: 10),
         Image.network(
-          'https://cdn.vjshop.vn/tin-tuc/phan-biet-cac-dong-macbook/phan-biet-cac-dong-macbook-1.jpg',
+          'https://sa.tinhte.vn/2015/05/3034128_tinhte.vn-macbook-12-1.jpg',
           height: 200,
           fit: BoxFit.fitHeight,
         ),
