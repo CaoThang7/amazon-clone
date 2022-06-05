@@ -3,6 +3,7 @@ import 'package:amazon_clone/screens/admin/screen/admin_screen.dart';
 import 'package:amazon_clone/screens/auth/auth_screen.dart';
 import 'package:amazon_clone/screens/home/category_screen.dart';
 import 'package:amazon_clone/screens/home/home_screen.dart';
+import 'package:amazon_clone/screens/search/search_screen.dart';
 import 'package:amazon_clone/widgets/bottom_bar.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -40,6 +41,14 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
         settings: routeSettings,
         builder: (_) => CategoryScreen(
           category: category,
+        ),
+      );
+    case SearchScreen.routeName:
+      var searchQuery = routeSettings.arguments as String;
+      return MaterialPageRoute(
+        settings: routeSettings,
+        builder: (_) => SearchScreen(
+          searchQuery: searchQuery,
         ),
       );
     default:

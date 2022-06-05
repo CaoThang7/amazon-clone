@@ -1,10 +1,12 @@
 import 'package:amazon_clone/constants/global_variables.dart';
+import 'package:amazon_clone/screens/search/search_screen.dart';
 import 'package:flutter/material.dart';
 
 AppBar AppBarHome(BuildContext context) {
   void navigateToSearchScreen(String query) {
-    // Navigator.pushNamed(context, SearchScreen.routeName, arguments: query);
+    Navigator.pushNamed(context, SearchScreen.routeName, arguments: query);
   }
+
   return AppBar(
     flexibleSpace: Container(
       decoration: const BoxDecoration(
