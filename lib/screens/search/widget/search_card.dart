@@ -1,4 +1,5 @@
 import 'package:amazon_clone/models/product.dart';
+import 'package:amazon_clone/widgets/stars.dart';
 import 'package:flutter/material.dart';
 
 class SearchCard extends StatefulWidget {
@@ -49,11 +50,14 @@ class _SearchCardState extends State<SearchCard> {
                       ),
                       Container(
                         width: 200,
-                        padding: const EdgeInsets.only(left: 10, top: 5),
+                        padding: const EdgeInsets.only(left: 10, top: 1),
+                        child: Stars(
+                          rating: 4,
+                        ),
                       ),
                       Container(
                         width: 200,
-                        padding: const EdgeInsets.only(left: 10, top: 5),
+                        padding: const EdgeInsets.only(left: 10, top: 2),
                         child: Text(
                           '\$${widget.product.price}',
                           style: const TextStyle(
@@ -65,12 +69,12 @@ class _SearchCardState extends State<SearchCard> {
                       ),
                       Container(
                         width: 200,
-                        padding: const EdgeInsets.only(left: 10),
-                        child: const Text('Eligible for FREE Shipping'),
+                        padding: const EdgeInsets.only(left: 10, top: 2),
+                        child: const Text('Ships in VietNam'),
                       ),
                       Container(
                         width: 200,
-                        padding: const EdgeInsets.only(left: 10, top: 5),
+                        padding: const EdgeInsets.only(left: 10, top: 2),
                         child: const Text(
                           'In Stock',
                           style: TextStyle(

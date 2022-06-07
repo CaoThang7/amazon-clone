@@ -1,47 +1,34 @@
 import 'package:amazon_clone/constants/global_variables.dart';
 import 'package:amazon_clone/models/product.dart';
-import 'package:amazon_clone/screens/home/widgets/address_box.dart';
-import 'package:amazon_clone/screens/product/product_details_screen.dart';
-import 'package:amazon_clone/screens/search/widget/search_card.dart';
-import 'package:amazon_clone/widgets/loader.dart';
+import 'package:amazon_clone/screens/product/widget/expansion_tile.dart';
+import 'package:amazon_clone/screens/search/search_screen.dart';
+import 'package:amazon_clone/widgets/custom_button.dart';
+import 'package:amazon_clone/widgets/stars.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:money_formatter/money_formatter.dart';
 
-import 'services/search_services.dart';
-
-class SearchScreen extends StatefulWidget {
-  static const String routeName = '/search-screen';
-  final String searchQuery;
-  const SearchScreen({
+class ProductDetailScreen extends StatefulWidget {
+  static const String routeName = '/product-details';
+  final Product product;
+  const ProductDetailScreen({
     Key? key,
-    required this.searchQuery,
-  });
-
+    required this.product,
+  }) : super(key: key);
   @override
-  State<SearchScreen> createState() => _SearchScreenState();
+  State<ProductDetailScreen> createState() => _ProductDetailScreenState();
 }
 
-class _SearchScreenState extends State<SearchScreen> {
-  List<Product>? products;
-  final SearchServices searchServices = SearchServices();
-
-  @override
-  void initState() {
-    super.initState();
-    fetchSearchedProduct();
-  }
-
-  fetchSearchedProduct() async {
-    products = await searchServices.fetchSearchedProduct(
-        context: context, searchQuery: widget.searchQuery);
-    setState(() {});
-  }
-
+class _ProductDetailScreenState extends State<ProductDetailScreen> {
   void navigateToSearchScreen(String query) {
     Navigator.pushNamed(context, SearchScreen.routeName, arguments: query);
   }
 
   @override
   Widget build(BuildContext context) {
+    MoneyFormatter fmf = MoneyFormatter(
+      amount: widget.product.price.toDouble(),
+    ); // Format money
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),
@@ -131,33 +118,98 @@ class _SearchScreenState extends State<SearchScreen> {
           ),
         ),
       ),
-      body: products == null
-          ? const Loader()
-          : Column(
-              children: [
-                const AddressBox(),
-                const SizedBox(height: 10),
-                Expanded(
-                  child: ListView.builder(
-                    itemCount: products!.length,
-                    itemBuilder: (context, index) {
-                      return GestureDetector(
-                        onTap: () {
-                          Navigator.pushNamed(
-                            context,
-                            ProductDetailScreen.routeName,
-                            arguments: products![index],
-                          );
-                        },
-                        child: SearchCard(
-                          product: products![index],
-                        ),
-                      );
-                    },
-                  ),
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                vertical: 10,
+                horizontal: 10,
+              ),
+              child: Container(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Visit the App Store',
+                      style: TextStyle(
+                        color: Colors.teal,
+                      ),
+                    ),
+                    Text(
+                      widget.product.name,
+                      style: const TextStyle(
+                          fontSize: 20, fontWeight: FontWeight.bold),
+                    ),
+                    Stars(
+                      rating: 4,
+                    ),
+                  ],
                 ),
-              ],
+              ),
             ),
+            CarouselSlider(
+              items: widget.product.images.map(
+                (i) {
+                  return Builder(
+                    builder: (BuildContext context) => Image.network(
+                      i,
+                      fit: BoxFit.contain,
+                      height: 200,
+                    ),
+                  );
+                },
+              ).toList(),
+              options: CarouselOptions(
+                viewportFraction: 1,
+                height: 300,
+              ),
+            ),
+            Container(
+              color: Colors.black12,
+              height: 5,
+            ),
+            TileExpansion(
+              tileName: "Price",
+              fontWeight: FontWeight.bold,
+              color: Colors.red,
+              fontsize: 18,
+              tileProduct:
+                  fmf.output.symbolOnLeft, // $ 12,345,678.90 (price like this)
+              tileNote:
+                  "No Import Fees Deposit & 28.72 USD Shipping to Vietnam",
+            ),
+            TileExpansion(
+              tileName: "Description",
+              tileProduct: widget.product.description,
+              fontsize: 16,
+              tileNote: "",
+            ),
+            Container(
+              color: Colors.black12,
+              height: 5,
+            ),
+            const SizedBox(height: 10),
+            Padding(
+              padding: const EdgeInsets.all(10),
+              child: CustomButton(
+                text: 'Add to Cart',
+                onTap: () {},
+                color: const Color.fromRGBO(254, 216, 19, 1),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(10),
+              child: CustomButton(
+                text: 'Buy Now',
+                onTap: () {},
+              ),
+            ),
+            const SizedBox(height: 10),
+          ],
+        ),
+      ),
     );
   }
 }
