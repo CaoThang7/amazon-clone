@@ -6,6 +6,7 @@ require('dotenv').config()
 const authRouter = require("./routes/authRouter");
 const adminRouter = require("./routes/adminRouter");
 const productRouter = require("./routes/productRouter");
+const cartRouter = require("./routes/cartRouter");
 // INIT
 const PORT = process.env.PORT || 3000;
 const app = express();
@@ -16,6 +17,7 @@ app.use(express.json())
 app.use('/api', authRouter)
 app.use('/api', adminRouter)
 app.use('/api', productRouter)
+app.use('/api', cartRouter)
 
 // Connections
 mongoose
