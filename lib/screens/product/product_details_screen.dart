@@ -1,5 +1,6 @@
 import 'package:amazon_clone/constants/global_variables.dart';
 import 'package:amazon_clone/models/product.dart';
+import 'package:amazon_clone/screens/cart/services/cart_services.dart';
 import 'package:amazon_clone/screens/product/widget/expansion_tile.dart';
 import 'package:amazon_clone/screens/search/search_screen.dart';
 import 'package:amazon_clone/widgets/custom_button.dart';
@@ -20,8 +21,16 @@ class ProductDetailScreen extends StatefulWidget {
 }
 
 class _ProductDetailScreenState extends State<ProductDetailScreen> {
+  final CartServices cartServices = CartServices();
   void navigateToSearchScreen(String query) {
     Navigator.pushNamed(context, SearchScreen.routeName, arguments: query);
+  }
+
+  void addToCart() {
+    cartServices.addToCart(
+      context: context,
+      product: widget.product,
+    );
   }
 
   @override
@@ -195,7 +204,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
               padding: const EdgeInsets.all(10),
               child: CustomButton(
                 text: 'Add to Cart',
-                onTap: () {},
+                onTap: addToCart,
                 color: const Color.fromRGBO(254, 216, 19, 1),
               ),
             ),
