@@ -34,7 +34,8 @@ const cartCtrl = {
                         .exec((error, _cart) => {
                             if (error) return res.status(400).json({ error });
                             if (_cart) {
-                                return res.status(201).json({ cart: _cart });
+                                // return res.status(201).json({ cart: _cart });
+                                return res.status(201).json("add to cart success!");
                             }
                         })
                 } else {
@@ -46,7 +47,8 @@ const cartCtrl = {
                     cart.save((error, cart) => {
                         if (error) return res.status(400).json({ error });
                         if (cart) {
-                            return res.status(201).json({ cart });
+                            // return res.status(201).json({ cart });
+                            return res.status(201).json("add to cart success!");
                         }
                     });
                 }
