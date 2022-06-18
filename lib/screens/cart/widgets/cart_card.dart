@@ -1,26 +1,51 @@
+import 'package:amazon_clone/models/product.dart';
+import 'package:amazon_clone/providers/cart_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:money_formatter/money_formatter.dart';
+import 'package:provider/provider.dart';
+import '../services/cart_services.dart';
 
 class CartCard extends StatefulWidget {
   final dataProduct;
-  const CartCard({Key? key, required this.dataProduct}) : super(key: key);
+  final int index;
+  const CartCard({Key? key, required this.dataProduct, required this.index})
+      : super(key: key);
 
   @override
   State<CartCard> createState() => _CartCardState();
 }
 
 class _CartCardState extends State<CartCard> {
+  final CartServices cartServices = CartServices();
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
   }
 
+  void increaseQuantity(Product product) {
+    cartServices.addToCart(
+      context: context,
+      product: product,
+    );
+  }
+
+  void decreaseQuantity(Product product) {
+    cartServices.removeFromCart(
+      context: context,
+      product: product,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    int quantity = widget.dataProduct.quantity.toInt();
     MoneyFormatter price = MoneyFormatter(
-        amount: widget.dataProduct.product_id['price'].toDouble());
+        amount: widget.dataProduct['product_id']['price'].toDouble());
+    final productCart =
+        context.watch<CartProvider>().cart.cartItems[widget.index];
+    final product = Product.fromMap(productCart['product_id']);
+    final quantity = productCart['quantity'];
+
     return Container(
       margin: EdgeInsets.only(bottom: 5),
       decoration: BoxDecoration(
@@ -43,7 +68,7 @@ class _CartCardState extends State<CartCard> {
             child: Row(
               children: [
                 Image.network(
-                  widget.dataProduct.product_id['images'][0],
+                  widget.dataProduct['product_id']['images'][0],
                   fit: BoxFit.contain,
                   height: 100,
                   width: 135,
@@ -54,7 +79,7 @@ class _CartCardState extends State<CartCard> {
                       width: 200,
                       padding: const EdgeInsets.symmetric(horizontal: 10),
                       child: Text(
-                        widget.dataProduct.product_id['name'],
+                        widget.dataProduct['product_id']['name'],
                         style: const TextStyle(
                           fontSize: 16,
                         ),
@@ -112,7 +137,7 @@ class _CartCardState extends State<CartCard> {
                   child: Row(
                     children: [
                       InkWell(
-                        onTap: () => {},
+                        onTap: () => decreaseQuantity(product),
                         child: Container(
                           width: 35,
                           height: 32,
@@ -139,7 +164,7 @@ class _CartCardState extends State<CartCard> {
                         ),
                       ),
                       InkWell(
-                        onTap: () => () {},
+                        onTap: () => increaseQuantity(product),
                         child: Container(
                           width: 35,
                           height: 32,

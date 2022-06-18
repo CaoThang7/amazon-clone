@@ -22,9 +22,12 @@ class _CartSubtotalState extends State<CartSubtotal> {
 
   @override
   Widget build(BuildContext context) {
-    MoneyFormatter totalPrice = MoneyFormatter(
-       amount: context.watch<CartProvider>().sum.toDouble()
-    );
+    final cart = context.watch<CartProvider>().cart;
+    int sum = 0;
+    cart.cartItems
+        .map((e) => sum += e['quantity'] * e['product_id']['price'] as int)
+        .toList();
+    MoneyFormatter totalPrice = MoneyFormatter(amount: sum.toDouble());
     return Container(
       margin: const EdgeInsets.all(10),
       padding: const EdgeInsets.only(left: 5),

@@ -20,7 +20,6 @@ class CartScreen extends StatefulWidget {
 }
 
 class _CartScreenState extends State<CartScreen> {
-  List<Cart>? cartlist;
   final CartServices cartService = CartServices();
   @override
   void initState() {
@@ -29,7 +28,7 @@ class _CartScreenState extends State<CartScreen> {
   }
 
   fetchAllCart() async {
-    cartlist = await cartService.fetchAllCart(context: context);
+    cartService.fetchAllCart(context: context);
     setState(() {});
   }
 
@@ -38,7 +37,7 @@ class _CartScreenState extends State<CartScreen> {
     final cart = context.watch<CartProvider>().cart;
     return Scaffold(
         appBar: AppBarCart(context),
-        body: cartlist == null
+        body: cart.cartItems == null
             ? const Loader()
             : SingleChildScrollView(
                 child: Column(children: [
@@ -48,7 +47,7 @@ class _CartScreenState extends State<CartScreen> {
                     padding: const EdgeInsets.all(8.0),
                     child: CustomButton(
                       text:
-                          'Proceed to checkout (${cart.product_id.length.toString()} items)',
+                          'Proceed to checkout (${cart.cartItems.length.toString()} items)',
                       onTap: () => {},
                       color: Colors.yellow[600],
                     ),
@@ -57,16 +56,17 @@ class _CartScreenState extends State<CartScreen> {
                   Container(color: Colors.black12.withOpacity(0.08), height: 5),
                   Container(
                     child: ListView.builder(
-                      itemCount: cartlist!.length,
+                      itemCount: cart.cartItems!.length,
                       shrinkWrap: true,
                       itemBuilder: (context, index) {
-                        var dataProduct = cartlist![index];
+                        var dataProduct = cart.cartItems![index];
                         return CartCard(
                           dataProduct: dataProduct,
+                          index:index
                         );
                       },
                     ),
-                  )
+                  ),
                 ]),
               ));
   }

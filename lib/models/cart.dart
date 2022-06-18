@@ -5,32 +5,35 @@ import 'package:amazon_clone/models/product.dart';
 
 class Cart {
   final String? id;
-  var product_id;
-  var user_id;
-  final double quantity;
+  final String? user_id;
+  var cartItems;
+  DateTime createdAt;
+  DateTime updatedAt;
 
-  Cart({
-    this.id,
-    required this.product_id,
-    required this.user_id,
-    required this.quantity,
-  });
+  Cart(
+      {this.id,
+      required this.user_id,
+      required this.cartItems,
+      required this.createdAt,
+      required this.updatedAt});
 
   Map<String, dynamic> toMap() {
     return {
       'id': id,
-      'product_id': product_id,
       'user_id': user_id,
-      'quantity': quantity,
+      'cartItems': cartItems,
+      'createdAt': createdAt,
+      'updatedAt': updatedAt
     };
   }
 
   factory Cart.fromMap(Map<String, dynamic> map) {
     return Cart(
       id: map['_id'],
-      product_id: map['product_id'] ?? '',
-      user_id: map['user_id'] ?? '',
-      quantity: map['quantity']?.toDouble() ?? 0.0,
+      user_id: map['user_id'],
+      cartItems: map['cartItems'],
+      createdAt: DateTime.parse(map['createdAt']),
+      updatedAt: DateTime.parse(map['updatedAt']),
     );
   }
 
@@ -40,15 +43,16 @@ class Cart {
 
   Cart copyWith({
     String? id,
-    var product_id,
-    var user_id,
-    Double? quantity,
+    String? user_id,
+    var cartItems,
+    DateTime? createdAt,
+    DateTime? updatedAt,
   }) {
     return Cart(
-      id: id ?? this.id,
-      product_id: product_id ?? this.product_id,
-      user_id: user_id ?? this.user_id,
-      quantity: this.quantity,
-    );
+        id: id ?? this.id,
+        user_id: user_id ?? this.user_id,
+        cartItems: cartItems ?? this.cartItems,
+        createdAt: createdAt ?? this.createdAt,
+        updatedAt: updatedAt ?? this.updatedAt);
   }
 }

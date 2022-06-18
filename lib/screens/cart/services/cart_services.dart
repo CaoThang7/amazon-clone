@@ -26,9 +26,11 @@ class CartServices {
           'x-auth-token': userProvider.user.token,
         },
         body: jsonEncode({
-          'quantity': 1,
-          'product_id': product.id!,
           'user_id': userProvider.user.id,
+          'cartItems': {
+            'product_id': product.id!,
+            'quantity': 1,
+          }
         }),
       );
 
@@ -36,7 +38,7 @@ class CartServices {
         response: res,
         context: context,
         onSuccess: () {
-          print("thanh cong");
+          showSnackBar(context, "add to cart success");
         },
       );
     } catch (e) {
@@ -45,12 +47,11 @@ class CartServices {
   }
 
   //fetch all data cart with id user
-  Future<List<Cart>> fetchAllCart({
+  void fetchAllCart({
     required BuildContext context,
   }) async {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
     final cartProvider = Provider.of<CartProvider>(context, listen: false);
-    List<Cart> cartList = [];
     try {
       http.Response res = await http
           .get(Uri.parse('$uri/cart/${userProvider.user.id}'), headers: {
@@ -62,34 +63,82 @@ class CartServices {
           response: res,
           context: context,
           onSuccess: () {
-            //save list product cart from json data to provider cart
             var cartlist = json.decode(res.body);
-            var listproductCart = cartlist.map((e) => e['product_id']);
-            Cart cart = cartProvider.cart.copyWith(product_id: listproductCart);
-            cartProvider.setCartFromModel(cart);
-
-            //sum total price in cart and save provider cart
-            int sum = 0;
-            cartlist
-                .map((e) =>
-                    sum += e['quantity'] * e['product_id']['price'] as int)
-                .toList();
-            cartProvider.setTotalPrice(sum);
-
             for (int i = 0; i < cartlist.length; i++) {
-              cartList.add(
-                Cart.fromJson(
-                  jsonEncode(
-                    cartlist[i],
-                  ),
-                ),
-              );
+              var cartItems = cartlist[i]['cartItems'];
+              var userId = cartlist[i]['user_id'];
+              var idCart = cartlist[i]['_id'];
+              Cart cart = cartProvider.cart
+                  .copyWith(id: idCart, user_id: userId, cartItems: cartItems);
+              cartProvider.setCartFromModel(cart);
             }
           });
     } catch (e) {
       showSnackBar(context, e.toString());
       print(e.toString());
     }
-    return cartList;
+  }
+
+  //increaseQuantity (update cart)
+  void increaseQuantity({
+    required BuildContext context,
+    required Product product,
+  }) async {
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+    final cartProvider = Provider.of<CartProvider>(context, listen: false);
+    try {
+      http.Response res = await http.post(
+        Uri.parse('$uri/cart/update'),
+        headers: {
+          'Content-Type': 'application/json; charset=UTF-8',
+          'x-auth-token': userProvider.user.token,
+        },
+        body: jsonEncode({
+          'idProduct': product.id!,
+          'idCart': cartProvider.cart.id,
+        }),
+      );
+
+      httpErrorHandle(
+        response: res,
+        context: context,
+        onSuccess: () {
+          print(res.body);
+        },
+      );
+    } catch (e) {
+      showSnackBar(context, e.toString());
+    }
+  }
+
+  void removeFromCart({
+    required BuildContext context,
+    required Product product,
+  }) async {
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+    final cartProvider = Provider.of<CartProvider>(context, listen: false);
+    try {
+      http.Response res = await http.delete(
+        Uri.parse('$uri/cart/delete/${product.id}'),
+        headers: {
+          'Content-Type': 'application/json; charset=UTF-8',
+          'x-auth-token': userProvider.user.token,
+        },
+        body: jsonEncode({
+          'idProduct': product.id!,
+          'idCart': cartProvider.cart.id,
+        }),
+      );
+
+      httpErrorHandle(
+        response: res,
+        context: context,
+        onSuccess: () {
+          showSnackBar(context, "success");
+        },
+      );
+    } catch (e) {
+      showSnackBar(context, e.toString());
+    }
   }
 }
