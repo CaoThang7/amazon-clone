@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:amazon_clone/models/cart.dart';
 import 'package:amazon_clone/providers/cart_provider.dart';
+import 'package:amazon_clone/screens/address/address_screen.dart';
 import 'package:amazon_clone/screens/cart/services/cart_services.dart';
 import 'package:amazon_clone/screens/cart/widgets/app_bars.dart';
 import 'package:amazon_clone/screens/cart/widgets/cart_card.dart';
@@ -32,9 +33,21 @@ class _CartScreenState extends State<CartScreen> {
     setState(() {});
   }
 
+  void navigateToAddress(int sum) {
+    Navigator.pushNamed(
+      context,
+      AddressScreen.routeName,
+      arguments: sum.toString(),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final cart = context.watch<CartProvider>().cart;
+    int sum = 0;
+    cart.cartItems
+        .map((e) => sum += e['quantity'] * e['product_id']['price'] as int)
+        .toList();
     return Scaffold(
         appBar: AppBarCart(context),
         body: cart.cartItems == null
@@ -48,7 +61,7 @@ class _CartScreenState extends State<CartScreen> {
                     child: CustomButton(
                       text:
                           'Proceed to checkout (${cart.cartItems.length.toString()} items)',
-                      onTap: () => {},
+                      onTap: () => navigateToAddress(sum),
                       color: Colors.yellow[600],
                     ),
                   ),
@@ -60,10 +73,7 @@ class _CartScreenState extends State<CartScreen> {
                       shrinkWrap: true,
                       itemBuilder: (context, index) {
                         var dataProduct = cart.cartItems![index];
-                        return CartCard(
-                          dataProduct: dataProduct,
-                          index:index
-                        );
+                        return CartCard(dataProduct: dataProduct, index: index);
                       },
                     ),
                   ),
