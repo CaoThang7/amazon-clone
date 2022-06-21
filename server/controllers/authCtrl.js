@@ -69,6 +69,17 @@ const authCtrl = {
     getUser: async (req, res) => {
         const user = await User.findById(req.user);
         res.json({ ...user._doc, token: req.token });
+    },
+    saveAddress: async (req, res) => {
+        try {
+            const { address, idUser } = req.body;
+            let user = await User.findById(idUser);
+            user.address = address;
+            user = await user.save();
+            res.json(user);
+        } catch (e) {
+            res.status(500).json({ error: e.message });
+        }
     }
 }
 

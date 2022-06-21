@@ -10,4 +10,6 @@ router.post('/tokenIsValid', authCtrl.validToken)
 
 router.get('/', auth, authCtrl.getUser)
 
+router.post('/save-user-address', auth, authCtrl.saveAddress)
+
 module.exports = router
