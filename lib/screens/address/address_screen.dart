@@ -151,6 +151,19 @@ class _AddressScreenState extends State<AddressScreen> {
                       },
                       color: Colors.yellow[600],
                     ),
+                    const SizedBox(height: 10),
+                    if (address.isNotEmpty)
+                      CustomButton(
+                        text: 'To continue payments',
+                        onTap: () {
+                          Navigator.pushNamed(
+                            context,
+                            OrderScreen.routeName,
+                            arguments: widget.totalAmount.toString(),
+                          );
+                        },
+                        color: Colors.yellow[600],
+                      ),
                   ],
                 ),
               ),

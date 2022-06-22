@@ -17,6 +17,10 @@ class GlobalVariables {
   static const Color greyBackgroundCOlor = Color(0xffebecee);
   static var selectedNavBarColor = Colors.cyan[800]!;
   static const unselectedNavBarColor = Colors.black87;
+  static const importantmessageColor = Color(0xff22A0B2);
+  static const activeColor = Color(0xff168A9A);
+  static const raidoTitleColor = Color(0xffFCF7F1);
+  static const borderRadioColor = Color.fromARGB(255, 225, 194, 168);
 
   // STATIC IMAGES
   static const List<String> carouselImages = [
@@ -45,4 +49,12 @@ class GlobalVariables {
       'image': 'assets/images/womenfashion.jpg',
     },
   ];
+
+  static const importantTitle = "Important message";
+  static const importantMessage =
+      "For eligible orders shipped by Amazon, the standard method will be to deliver the package unattended at the front door.You can change the delivery location, or to arrange for the package to be delivered directly to the recipient from 'Add delivery instructions' or 'Unattended Preference' menu. However, we may not be able to adhere to the standard method or instructions depending on the order details.";
+  static const subTitleRaidoCOD =
+      "Domestic Delivery only.Please note that refunds are issued as Amazon Gift Certificates for order cancellations or returned items";
+  static const subTitleRaidoPayments =
+      "Items are shipped after payment is made \n\u{003E} Convenience store \n\u{003E} ATM \n\u{003E} Internet Bank \n\u{003E} e-Money";
 }
