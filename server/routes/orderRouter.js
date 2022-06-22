@@ -4,4 +4,6 @@ const orderCtrl = require('../controllers/orderCtrl')
 
 router.post('/order', auth, orderCtrl.orderProduct);
 
+router.get('/order/:userid', auth, orderCtrl.orderUserId);
+
 module.exports = router
