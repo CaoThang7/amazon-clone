@@ -7,7 +7,7 @@ import 'package:amazon_clone/models/cart.dart';
 import 'package:amazon_clone/models/product.dart';
 import 'package:amazon_clone/providers/cart_provider.dart';
 import 'package:amazon_clone/providers/user_provider.dart';
-import 'package:amazon_clone/screens/order/order_success.dart';
+import 'package:amazon_clone/screens/order/screens/order_success.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;

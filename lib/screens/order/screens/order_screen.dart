@@ -9,8 +9,8 @@ import 'package:amazon_clone/widgets/custom_button.dart';
 import 'package:amazon_clone/widgets/loader.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'widgets/below_app_bar.dart';
-import 'widgets/radio_button_group_widget.dart';
+import '../widgets/below_app_bar.dart';
+import '../widgets/radio_button_group_widget.dart';
 import 'package:amazon_clone/constants/global_variables.dart';
 
 class OrderScreen extends StatefulWidget {

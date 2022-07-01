@@ -1,7 +1,7 @@
 import 'package:amazon_clone/constants/utils.dart';
 import 'package:amazon_clone/providers/user_provider.dart';
 import 'package:amazon_clone/screens/address/widgets/app_bars.dart';
-import 'package:amazon_clone/screens/order/order_screen.dart';
+import 'package:amazon_clone/screens/order/screens/order_screen.dart';
 import 'package:amazon_clone/widgets/custom_button.dart';
 import 'package:amazon_clone/widgets/custom_textfield.dart';
 import 'package:flutter/material.dart';
