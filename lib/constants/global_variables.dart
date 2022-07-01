@@ -57,4 +57,5 @@ class GlobalVariables {
       "Domestic Delivery only.Please note that refunds are issued as Amazon Gift Certificates for order cancellations or returned items";
   static const subTitleRaidoPayments =
       "Items are shipped after payment is made \n\u{003E} Convenience store \n\u{003E} ATM \n\u{003E} Internet Bank \n\u{003E} e-Money";
+  static const messageOrder = "Please check your email.Message Center or Your Orders pagefor order confirmation, Pay ID notification and detailed delivery infomation.";    
 }

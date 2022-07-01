@@ -6,6 +6,7 @@ import 'package:amazon_clone/screens/auth/auth_screen.dart';
 import 'package:amazon_clone/screens/home/category_screen.dart';
 import 'package:amazon_clone/screens/home/home_screen.dart';
 import 'package:amazon_clone/screens/order/order_screen.dart';
+import 'package:amazon_clone/screens/order/order_success.dart';
 import 'package:amazon_clone/screens/product/product_details_screen.dart';
 import 'package:amazon_clone/screens/search/search_screen.dart';
 import 'package:amazon_clone/widgets/bottom_bar.dart';
@@ -78,6 +79,11 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
         builder: (_) => OrderScreen(
           totalAmount: totalAmount,
         ),
+      );
+    case OrderSuccess.routeName:
+      return MaterialPageRoute(
+        settings: routeSettings,
+        builder: (_) => const OrderSuccess(),
       );
     default:
       return MaterialPageRoute(
