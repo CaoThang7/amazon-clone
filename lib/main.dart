@@ -1,5 +1,6 @@
 import 'package:amazon_clone/constants/global_variables.dart';
 import 'package:amazon_clone/providers/cart_provider.dart';
+import 'package:amazon_clone/providers/order_provier.dart';
 import 'package:amazon_clone/providers/user_provider.dart';
 import 'package:amazon_clone/router/router.dart';
 import 'package:amazon_clone/screens/admin/screen/admin_screen.dart';
@@ -13,6 +14,7 @@ void main() {
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(create: (_) => UserProvider()),
     ChangeNotifierProvider(create: (_) => CartProvider()),
+    ChangeNotifierProvider(create: (_) => OrderProvider()),
   ], child: const MyApp()));
 }
 
