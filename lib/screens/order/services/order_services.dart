@@ -81,11 +81,13 @@ class OrderServices {
               String userId = orderlist[i]['user_id'];
               String idOrder = orderlist[i]['_id'];
               int orderedAt = orderlist[i]['orderedAt'];
+              int status = orderlist[i]['status'];
               Order order = orderProvider.order.copyWith(
                 id: idOrder,
                 user_id: userId,
                 cartItems: cartItems,
-                orderedAt: orderedAt
+                orderedAt: orderedAt,
+                status: status
               );
               orderProvider.setOrderFromModel(order);
             }
