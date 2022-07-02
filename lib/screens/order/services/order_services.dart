@@ -4,8 +4,10 @@ import 'package:amazon_clone/constants/error_handling.dart';
 import 'package:amazon_clone/constants/global_variables.dart';
 import 'package:amazon_clone/constants/utils.dart';
 import 'package:amazon_clone/models/cart.dart';
+import 'package:amazon_clone/models/order.dart';
 import 'package:amazon_clone/models/product.dart';
 import 'package:amazon_clone/providers/cart_provider.dart';
+import 'package:amazon_clone/providers/order_provier.dart';
 import 'package:amazon_clone/providers/user_provider.dart';
 import 'package:amazon_clone/screens/order/screens/order_success.dart';
 import 'package:flutter/material.dart';
@@ -54,6 +56,43 @@ class OrderServices {
       );
     } catch (e) {
       showSnackBar(context, e.toString());
+    }
+  }
+
+  void fetchMyOrder({
+    required BuildContext context,
+  }) async {
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+    final orderProvider = Provider.of<OrderProvider>(context, listen: false);
+    try {
+      http.Response res = await http
+          .get(Uri.parse('$uri/order/${userProvider.user.id}'), headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'x-auth-token': userProvider.user.token,
+      });
+
+      httpErrorHandle(
+          response: res,
+          context: context,
+          onSuccess: () {
+            var orderlist = json.decode(res.body);
+            for (int i = 0; i < orderlist.length; i++) {
+              var cartItems = orderlist[i]['cartItems'];
+              String userId = orderlist[i]['user_id'];
+              String idOrder = orderlist[i]['_id'];
+              int orderedAt = orderlist[i]['orderedAt'];
+              Order order = orderProvider.order.copyWith(
+                id: idOrder,
+                user_id: userId,
+                cartItems: cartItems,
+                orderedAt: orderedAt
+              );
+              orderProvider.setOrderFromModel(order);
+            }
+          });
+    } catch (e) {
+      showSnackBar(context, e.toString());
+      print(e.toString());
     }
   }
 }

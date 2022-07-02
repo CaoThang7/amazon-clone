@@ -1,4 +1,5 @@
 import 'package:amazon_clone/screens/auth/auth_screen.dart';
+import 'package:amazon_clone/screens/order/screens/my_order.dart';
 import 'package:amazon_clone/screens/order/widgets/app_bars.dart';
 import 'package:amazon_clone/screens/order/widgets/order_success/below_app_bar.dart';
 import 'package:amazon_clone/screens/order/widgets/order_success/message.dart';
@@ -15,6 +16,10 @@ class OrderSuccess extends StatefulWidget {
 }
 
 class _OrderSuccessState extends State<OrderSuccess> {
+  void navigateMyOrder() {
+    Navigator.pushNamed(context, MyOrder.routeName);
+  }
+
   void navigateKeepShopping() {
     Navigator.pushNamed(context, BottomBar.routeName);
   }
@@ -32,7 +37,9 @@ class _OrderSuccessState extends State<OrderSuccess> {
                 padding: EdgeInsets.all(10),
                 child: CustomButton(
                     text: 'Review or edit recent orders',
-                    onTap: () {},
+                    onTap: () {
+                      navigateMyOrder();
+                    },
                     color: Colors.white),
               ),
               Padding(

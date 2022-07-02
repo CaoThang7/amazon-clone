@@ -1,3 +1,4 @@
+import 'package:amazon_clone/screens/order/widgets/my_order/order_empty.dart';
 import 'package:flutter/material.dart';
 
 String uri = 'http://10.0.3.2:3000/api';
@@ -59,4 +60,7 @@ class GlobalVariables {
       "Items are shipped after payment is made \n\u{003E} Convenience store \n\u{003E} ATM \n\u{003E} Internet Bank \n\u{003E} e-Money";
   static const messageOrder =
       "Please check your email.Message Center or Your Orders pagefor order confirmation, Pay ID notification and detailed delivery infomation.";
+  static const orderEmptyOne = "Looks like you haven't placed an order in the last 3 months.";    
+  static const orderEmptyTwo = "Use search above to find past orders";    
+  static const orderEmptyTitle = "Your Orders";  
 }
