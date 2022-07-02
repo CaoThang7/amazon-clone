@@ -17,15 +17,6 @@ class _OrderDetailState extends State<OrderDetail> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBarOrderSuccess(context),
-      // body: Hero(
-      //   tag: widget.orderItem,
-      //   child: Image.network(
-      //     widget.orderItem['product_id']['images'][0],
-      //     fit: BoxFit.contain,
-      //     height: 100,
-      //     width: 135,
-      //   ),
-      // ),
       body: SingleChildScrollView(
         child: Column(
           children: [
