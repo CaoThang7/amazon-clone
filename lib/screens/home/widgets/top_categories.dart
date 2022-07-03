@@ -12,7 +12,7 @@ class TopCategories extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 200,
+      height: 170,
       padding: EdgeInsets.only(left: 5, right: 5),
       child: ListView.builder(
         itemCount: GlobalVariables.categoryImages.length,
@@ -33,7 +33,7 @@ class TopCategories extends StatelessWidget {
                     child: Image.asset(
                       GlobalVariables.categoryImages[index]['image']!,
                       fit: BoxFit.cover,
-                      height: 150,
+                      height: 120,
                     ),
                   ),
                   const SizedBox(

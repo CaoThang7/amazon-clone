@@ -39,7 +39,7 @@ class GlobalVariables {
     },
     {
       'title': 'Shop Deals',
-      'image': 'assets/images/bicycle.jpg',
+      'image': 'assets/images/shopdeal.jpg',
     },
     {
       'title': 'Beauty Picks',
