@@ -11,9 +11,9 @@ class Orders extends StatefulWidget {
 
 class _OrdersState extends State<Orders> {
   List list = [
-    'https://sa.tinhte.vn/2015/05/3034128_tinhte.vn-macbook-12-1.jpg',
-    'https://sa.tinhte.vn/2015/05/3034128_tinhte.vn-macbook-12-1.jpg',
-    'https://sa.tinhte.vn/2015/05/3034128_tinhte.vn-macbook-12-1.jpg',
+    'https://res.cloudinary.com/du9e4pxxu/image/upload/v1654327119/macbook/lbx63wlzlfp7d2cpzrn5.jpg',
+    'https://res.cloudinary.com/du9e4pxxu/image/upload/v1654327237/women%20fashion/ez4yyuy4y5mulirq4ut2.jpg',
+    'https://res.cloudinary.com/du9e4pxxu/image/upload/v1654327178/macbook/cgbvxb7rkr8dupaaqnlo.jpg',
   ];
   @override
   Widget build(BuildContext context) {
