@@ -14,6 +14,27 @@ class _DealOfDayState extends State<DealOfDay> {
     super.initState();
   }
 
+  List list = [
+    {
+      "name": "Macbook M1 Chip, 13' Retina Display, 8GB RAM, 256GB SSD",
+      "image":
+          'https://res.cloudinary.com/du9e4pxxu/image/upload/v1654327119/macbook/lbx63wlzlfp7d2cpzrn5.jpg',
+      "price": "7000"
+    },
+    {
+      "name": "Sweater Casual Basic Fall Pullover",
+      "image":
+          'https://res.cloudinary.com/du9e4pxxu/image/upload/v1654327237/women%20fashion/ez4yyuy4y5mulirq4ut2.jpg',
+      "price": "7000"
+    },
+    {
+      "name": "Macbook M2, 14-inch with 8-core CPU and 14-core GPU",
+      "image":
+          'https://res.cloudinary.com/du9e4pxxu/image/upload/v1654327178/macbook/cgbvxb7rkr8dupaaqnlo.jpg',
+      "price": "7000"
+    }
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -27,59 +48,30 @@ class _DealOfDayState extends State<DealOfDay> {
           ),
         ),
         const SizedBox(height: 10),
-        Image.network(
-          'https://sa.tinhte.vn/2015/05/3034128_tinhte.vn-macbook-12-1.jpg',
-          height: 200,
-          fit: BoxFit.fitHeight,
-        ),
-        const SizedBox(height: 10),
-        Container(
-          padding: const EdgeInsets.only(left: 15),
-          alignment: Alignment.topLeft,
-          child: const Text(
-            '\$100',
-            style: TextStyle(fontSize: 18),
-          ),
-        ),
-        Container(
-          alignment: Alignment.topLeft,
-          padding: const EdgeInsets.only(left: 15, top: 5, right: 40),
-          child: const Text(
-            'Macbook pro m1',
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
-          ),
-        ),
-        const SizedBox(height: 10),
         SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child:
-              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-            Image.network(
-              'https://sa.tinhte.vn/2015/05/3034128_tinhte.vn-macbook-12-1.jpg',
-              fit: BoxFit.fitHeight,
-              width: 100,
-              height: 100,
+          child: Container(
+            child: ListView.builder(
+              itemCount: list.length,
+              shrinkWrap: true,
+              itemBuilder: (context, index) {
+                final product = list[index];
+                return Card(
+                  elevation: 0,
+                  child: ListTile(
+                    title: Text(product['name'],
+                        style: TextStyle(fontWeight: FontWeight.bold)),
+                    subtitle: Text("price: \$${product['price']}"),
+                    leading: Image.network(
+                      product['image'],
+                      fit: BoxFit.contain,
+                      height: 150,
+                      width: 70,
+                    ),
+                  ),
+                );
+              },
             ),
-            Image.network(
-              'https://sa.tinhte.vn/2015/05/3034128_tinhte.vn-macbook-12-1.jpg',
-              fit: BoxFit.fitHeight,
-              width: 100,
-              height: 100,
-            ),
-            Image.network(
-              'https://sa.tinhte.vn/2015/05/3034128_tinhte.vn-macbook-12-1.jpg',
-              fit: BoxFit.fitHeight,
-              width: 100,
-              height: 100,
-            ),
-            Image.network(
-              'https://sa.tinhte.vn/2015/05/3034128_tinhte.vn-macbook-12-1.jpg',
-              fit: BoxFit.fitHeight,
-              width: 100,
-              height: 100,
-            ),
-          ]),
+          ),
         ),
         Container(
           padding: const EdgeInsets.symmetric(
