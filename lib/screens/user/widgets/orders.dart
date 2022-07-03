@@ -1,4 +1,5 @@
 import 'package:amazon_clone/constants/global_variables.dart';
+import 'package:amazon_clone/screens/order/screens/my_order.dart';
 import 'package:amazon_clone/screens/user/widgets/single_product.dart';
 import 'package:flutter/material.dart';
 
@@ -15,6 +16,11 @@ class _OrdersState extends State<Orders> {
     'https://res.cloudinary.com/du9e4pxxu/image/upload/v1654327237/women%20fashion/ez4yyuy4y5mulirq4ut2.jpg',
     'https://res.cloudinary.com/du9e4pxxu/image/upload/v1654327178/macbook/cgbvxb7rkr8dupaaqnlo.jpg',
   ];
+
+  void navigateMyOrder() {
+    Navigator.pushNamed(context, MyOrder.routeName);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -38,10 +44,13 @@ class _OrdersState extends State<Orders> {
               padding: const EdgeInsets.only(
                 right: 15,
               ),
-              child: Text(
-                'See all',
-                style: TextStyle(
-                  color: GlobalVariables.selectedNavBarColor,
+              child: GestureDetector(
+                onTap: navigateMyOrder,
+                child: Text(
+                  'See all',
+                  style: TextStyle(
+                    color: GlobalVariables.selectedNavBarColor,
+                  ),
                 ),
               ),
             ),
